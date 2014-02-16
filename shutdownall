@@ -1,0 +1,3 @@
+for _, pc in computers do
+	pc.shutdown()
+end

@@ -1,0 +1,94 @@
+-- SERVER
+computers = {}
+--Get all the computers plugged in to the network.
+for _, v in ipairs(peripheral.getNames()) do
+	tempP = peripheral.wrap(v)
+	if tempP.shutdown ~= nil then
+		for _, v2 in ipairs(computers) do
+			if v2 == v then
+				dupeV = true
+			end
+	end
+	if not dupeV then
+		table.insert(computers, peripheral.wrap(v))
+	end
+	end
+	tempP = nil
+	dupeV = nil
+	end
+
+print("Welcome to FigNetOS Server 1!")
+os.version = function()
+	print("FigNetOS Server 1.0")
+end
+
+--Prepare to handle SharedFS and Login requests.
+modem = peripheral.wrap("top")
+modem.open(66)
+modem.open(67)
+modem.open(68)
+modem.open(69)
+mpassfile = fs.open("mpass.txt", "r")
+loginfile = fs.open("logins.tbl", "r")
+logins = textutils.unserialize(loginfile.readAll().."}")
+mpass = mpassfile.readAll()
+loginfile.close()
+while true do
+	local event, modemSide, senderChannel, replyChannel, message, senderDistance = os.pullEvent("modem_message")
+	print("Got message "..message)
+	if string.find(message, "login") ~= nil then
+		creds = {}
+		for i in string.gmatch(message, "%S+") do
+  			table.insert(creds, i)
+		end
+		print("A computer attempted to login with details "..creds[2].." "..creds[3])
+		for username, pass in pairs(logins) do
+			print("Trying "..username.." "..pass)
+			if creds[1] == "login" and creds[2] == username and creds[3] == pass then
+				goodLogin = true
+			end
+		end
+		if goodLogin == true then
+			modem.transmit(67, 66, creds[2].." good")
+		else
+			modem.transmit(67, 66, creds[2].." bad")
+		end
+	elseif string.find(message, mpass) ~= nil then
+		cmd = {}
+		for i in string.gmatch(message, "%S+") do
+  			table.insert(cmd, i)
+		end
+		shell.run(cmd[2])
+		modem.transmit(68, 66, "done")
+	elseif string.find(message, "rls") ~= nil then
+		dir = {}
+		for i in string.gmatch(message, "%S+") do
+  			table.insert(dir, i)
+		end
+		files = fs.list(dir[2])
+		modem.transmit(69, 66, textutils.serialize(files))
+	elseif string.find(message, "rdl") ~= nil then
+		file = {}
+		for i in string.gmatch(message, "%S+") do
+  			table.insert(file, i)
+		end
+		filedl = fs.open(file[2], "r")
+		transmit = filedl.readAll()
+		filedl.close()
+		modem.transmit(69, 66, transmit)
+	elseif string.find(message, "rup") ~= nil then
+		file = {}
+		for i in string.gmatch(message, "%S+") do
+  			table.insert(file, i)
+		end
+		fileup = fs.open(file[2], "w")
+		fileup.write(file[3])
+		fileup.close()
+		modem.transmit(69, 66, "done")
+	end
+
+
+
+
+
+end

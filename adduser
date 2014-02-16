@@ -1,0 +1,11 @@
+--adduser
+tArgs = {...}
+if not tArgs[1] then
+printerror("Usage: adduser [username] [password]")
+else
+userfile = fs.open("logins.tbl", "w")
+userfile.write("["..tArgs[1].."]='"..tArgs[2].."',")
+userfile.close()
+fs.makeDir("docs/"..tArgs[1])
+print("Restart server to allow the new user to log in.")
+end

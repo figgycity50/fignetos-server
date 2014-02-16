@@ -1,0 +1,3 @@
+for _, pc in pairs(computers) do
+	pc.reboot()
+end
