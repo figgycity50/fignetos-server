@@ -81,8 +81,11 @@ while true do
 		for i in string.gmatch(message, "%S+") do
   			table.insert(file, i)
 		end
+		for i=3, #file do
+			filetent = filetent.." "..file[i]
+		end
 		fileup = fs.open(file[2], "w")
-		fileup.write(file[3])
+		fileup.write(filetent)
 		fileup.close()
 		modem.transmit(69, 66, "done")
 	end
