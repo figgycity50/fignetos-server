@@ -33,7 +33,7 @@ loginfile = fs.open("logins.tbl", "r")
 logins = textutils.unserialize(loginfile.readAll().."}")
 mpass = mpassfile.readAll()
 loginfile.close()
-for u, p in logins do
+for u, p in pairs(logins) do
 	print(u.." = "..p)
 end
 while true do
