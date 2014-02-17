@@ -33,6 +33,7 @@ loginfile = fs.open("logins.tbl", "r")
 loginstring = loginfile.readAll()
 print("loginstring's a "..type(loginstring))
 loginsa = loginstring.."}"
+print(loginsa)
 logins = textutils.unserialize(loginsa)
 mpass = mpassfile.readAll()
 loginfile.close()
