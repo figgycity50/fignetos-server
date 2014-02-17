@@ -31,7 +31,8 @@ modem.open(69)
 mpassfile = fs.open("mpass.txt", "r")
 loginfile = fs.open("logins.tbl", "r")
 print("DEBUG: loginfile.readAll() outputs "..loginfile.readAll())
-logins = textutils.unserialize(loginfile.readAll().."}")
+loginstring = loginfile.readAll().."}"
+logins = textutils.unserialize(loginstring)
 mpass = mpassfile.readAll()
 loginfile.close()
 while true do
