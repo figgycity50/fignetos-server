@@ -34,6 +34,7 @@ print("DEBUG: loginfile.readAll() outputs "..loginfile.readAll())
 loginstringa = loginfile.readAll()
 loginstring = loginstringa.."}"
 logins = textutils.unserialize(loginstring)
+print("logins is a "..type(logins))
 mpass = mpassfile.readAll()
 loginfile.close()
 while true do
