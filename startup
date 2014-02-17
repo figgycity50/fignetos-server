@@ -84,6 +84,7 @@ while true do
 		for i in string.gmatch(message, "%S+") do
   			table.insert(file, i)
 		end
+		filetent = ""
 		for i=3, #file do
 			filetent = filetent.." "..file[i]
 		end
