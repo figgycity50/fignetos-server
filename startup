@@ -35,7 +35,7 @@ loginsa = loginstring.."}"
 logins = textutils.unserialize(loginsa)
 mpass = mpassfile.readAll()
 loginfile.close()
-mpass.close()
+mpassfile.close()
 while true do
 	local event, modemSide, senderChannel, replyChannel, message, senderDistance = os.pullEvent("modem_message")
 	print("Got message "..message)
