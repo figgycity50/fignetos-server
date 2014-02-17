@@ -85,11 +85,11 @@ while true do
   			table.insert(file, i)
 		end
 		filetent = ""
-		for i=3, #file do
-			filetent = filetent.." "..file[i]
+		for i=4, #file do
+			file[3] = file[3]..file[i]
 		end
 		fileup = fs.open(file[2], "w")
-		fileup.write(filetent)
+		fileup.write(file[3])
 		fileup.close()
 		modem.transmit(69, 66, "done")
 	end
