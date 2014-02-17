@@ -33,9 +33,6 @@ loginfile = fs.open("logins.tbl", "r")
 logins = textutils.unserialize(loginfile.readAll().."}")
 mpass = mpassfile.readAll()
 loginfile.close()
-for u, p in pairs(logins) do
-	print(type(u).." = "..type(p))
-end
 while true do
 	local event, modemSide, senderChannel, replyChannel, message, senderDistance = os.pullEvent("modem_message")
 	print("Got message "..message)
