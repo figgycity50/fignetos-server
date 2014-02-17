@@ -31,6 +31,7 @@ modem.open(69)
 mpassfile = fs.open("mpass.txt", "r")
 loginfile = fs.open("logins.tbl", "r")
 loginstring = loginfile.readAll()
+print("loginstring's a "..type(loginstring))
 loginsa = loginstring.."}"
 logins = textutils.unserialize(loginsa)
 mpass = mpassfile.readAll()
